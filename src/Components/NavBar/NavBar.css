@@ -1,0 +1,26 @@
+header { 
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 90px;
+    background-color: white;
+    padding: 0 50px;
+}
+nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem; 
+}
+nav a {
+    display: flex;
+    color: #000000;
+}
+.logo {
+    width: 70px;
+    height: 70px;
+}
+/* #logo {background-size: cover;
+    background: url("escudo.png");
+    background-repeat: no-repeat;
+  } */
