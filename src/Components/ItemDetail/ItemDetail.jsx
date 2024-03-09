@@ -3,9 +3,8 @@ import ItemCount from "../ItemCount/ItemCount";
 import { CartContext } from "../../Context/CartContext";
 import "./ItemDetail.css";
 
-
 const ItemDetail = ({ item }) => {
-  const { cart} = useContext(CartContext);
+  const { cart, clickAdd } = useContext(CartContext);
 
   const [cantidad, setCantidad] = useState(1);
 
@@ -14,6 +13,11 @@ const ItemDetail = ({ item }) => {
   };
 
   const clickAddition = () => {
+    if (item.stock <= cantidad) {
+      return alert(
+        "No puedes agregar este producto debido a que no hay mas stock"
+      );
+    }
     cantidad < item.stock && setCantidad(cantidad + 1);
   };
 
@@ -35,7 +39,14 @@ const ItemDetail = ({ item }) => {
             <h4 className="fw-semibold">Categoria: {item.categoria}</h4>
           </div>
 
-          <ItemCount/>
+          <ItemCount
+            cantidad={cantidad}
+            clickSubstract={clickSubstract}
+            clickAddition={clickAddition}
+            clickAdd={() => {
+              clickAdd(item, cantidad);
+            }}
+          />
         </div>
       </div>
     </div>

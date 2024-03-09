@@ -3,38 +3,42 @@ import { createContext, useState } from "react";
 export const CartContext = createContext();
 
 export const CartProvider = (props) => {
-    const [cart, setCart] = useState([]);
-   
-    const clickAdd = (item, cantidad) => {
+  const [cart, setCart] = useState([]);
+
+  const clickAdd = (item, cantidad) => {
     const itemInCart = { ...item, cantidad };
 
     const newCart = [...cart];
     const inCart = newCart.find((producto) => producto.id === itemInCart.id);
 
     if (inCart) {
-        inCart.cantidad += cantidad;
+      inCart.cantidad += cantidad;
     } else {
-        newCart.push(itemInCart);
+      newCart.push(itemInCart);
     }
     setCart([...newCart]);
-   
-    };
-    const quantityInCart = () => {
-        return cart.reduce((acc, prod) => acc + (typeof prod.cantidad === 'number' ? prod.cantidad : 0), 0);
-    };
+  };
+  const quantityInCart = () => {
+    return cart.reduce((acc, prod) => acc + prod.cantidad, 0);
+  };
 
-    const totalPrice = () => {
-        return cart.reduce((acc, prod) => acc + (typeof prod.price === 'number' && typeof prod.cantidad === 'number' ? prod.price * prod.cantidad : 0), 0);
-    };
+  const totalPrice = () => {
+    let amount = 0;
+    cart.map((i) => {
+      amount += Number(i.cantidad * i.precio);
+    });
+    return amount;
+  };
 
-    const empty = () => {
-        setCart([]);
-    };
-    
-    return (
-        <CartContext.Provider value={{cart, clickAdd, quantityInCart, totalPrice, empty}}>
-            {props.children}
-        </CartContext.Provider>
-        )
+  const empty = () => {
+    setCart([]);
+  };
 
+  return (
+    <CartContext.Provider
+      value={{ cart, clickAdd, quantityInCart, totalPrice, empty }}
+    >
+      {props.children}
+    </CartContext.Provider>
+  );
 };

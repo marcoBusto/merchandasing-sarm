@@ -10,7 +10,7 @@ const ItemListContainer = ({ greeting }) => {
 
   useEffect(() => {
     const productRef = collection(db, "productos");
-    console.log(category);
+    // console.log(category);
     const q = category
       ? query(productRef, where("categoria", "==", category))
       : productRef;
@@ -23,9 +23,10 @@ const ItemListContainer = ({ greeting }) => {
       );
     });
   }, [category]);
-  console.log(productos);
+  // console.log(productos);
   return (
     <main className="p-3">
+      <h1 className="title p-3">{greeting}</h1>
       <ItemList productos={productos} />
     </main>
   );

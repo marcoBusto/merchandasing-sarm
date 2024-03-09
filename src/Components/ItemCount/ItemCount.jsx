@@ -1,21 +1,6 @@
-import React, { useState, useContext } from "react";
-import { CartContext } from "../../Context/CartContext";
 import "./ItemCount.css";
 
-const ItemCount = ({ item }) => { // Agregamos `item` como prop
-  const [cantidad, setCantidad] = useState(1);
-  const { clickAdd } = useContext(CartContext);
-
-  const clickAddition = () => {
-    setCantidad(cantidad + 1);
-  };
-
-  const clickSubstract = () => {
-    if (cantidad > 0) {
-      setCantidad(cantidad - 1);
-    }
-  };
-
+const ItemCount = ({ cantidad, clickSubstract, clickAddition, clickAdd }) => {
   return (
     <div className="w-100">
       <div className="w-100" style={{ margin: "auto" }}>
@@ -28,7 +13,7 @@ const ItemCount = ({ item }) => { // Agregamos `item` como prop
             +
           </button>
         </div>
-        <button onClick={() => clickAdd(item, cantidad)} className="w-100 bg-danger text-white">
+        <button onClick={clickAdd} className="w-100 bg-danger text-white">
           <p className="text-white m-0 p-0">Agregar al carrito</p>
         </button>
       </div>
